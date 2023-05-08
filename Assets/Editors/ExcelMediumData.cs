@@ -35,7 +35,7 @@ public static class ExcelDataReader
    // public static string excelFilePath = Application.dataPath.Replace("Assets", "Excel");
  
     //自动生成C#类文件路径
-    static string excelCodePath = Application.dataPath + "/Script/Excel/AutoCreateCSCode";
+    static string excelCodePath = Application.dataPath + "/Scripts/Excel/AutoCreateCSCode";
     //自动生成Asset文件路径
     static string excelAssetPath = "Assets/Resources/ExcelAsset";
  
