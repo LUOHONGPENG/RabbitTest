@@ -25,9 +25,9 @@ public static class ExcelDataReader
     //Name
     const int excelNameRow = 2;
     //Type
-    const int excelTypeRow = 4;
+    const int excelTypeRow = 3;
     //Data
-    const int excelDataRow = 5;
+    const int excelDataRow = 4;
  
     //ExcelPath
     public static string excelFilePath = Application.dataPath + "/Excel";
