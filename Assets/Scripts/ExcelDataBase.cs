@@ -6,9 +6,16 @@ using System.Linq;
  
 public class ExcelDataBase<T> : ScriptableObject where T : ExcelItemBase
 {
+    /// <summary>
+    /// The array that contains all the data
+    /// </summary>
     public T[] items;
- 
-    //Find the ExcelItem that has the targetID
+
+    /// <summary>
+    /// Find and get the ExcelItem that has the targetID
+    /// </summary>
+    /// <param name="targetId"></param>
+    /// <returns></returns>
     public T GetExcelItem(int targetId)
     {
         if(items != null && items.Length > 0)

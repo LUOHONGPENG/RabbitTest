@@ -5,6 +5,7 @@ using System;
  
 public class ExcelManager : Singleton<ExcelManager>
 {
+    //A dictionary?
     Dictionary<Type, object> excelDataDic = new Dictionary<Type, object>();
  
     public T GetExcelData<T, V>() where T : ExcelDataBase<V> where V : ExcelItemBase

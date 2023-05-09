@@ -7,7 +7,7 @@ public class RabbitTest : MonoBehaviour
 
     private void Start()
     {
-        TestDataExcelData data1 = Singleton<ExcelManager>.Instance.GetExcelData<TestDataExcelData, TestDataExcelItem>();
+        TestDataExcelData data1 = ExcelManager.Instance.GetExcelData<TestDataExcelData, TestDataExcelItem>();
 
         if (data1 != null)
         {
