@@ -49,7 +49,7 @@ public class BuildExcelWindow : EditorWindow
     {
         scrollPosition = GUILayout.BeginScrollView(scrollPosition,
             GUILayout.Width(position.width), GUILayout.Height(position.height));
-        //自动创建C#脚本
+        //CreateCS
         GUILayout.Space(10);
         GUILayout.Label("Excel To Script");
         for (int i = 0; i < fileNameList.Count; i++)
@@ -63,7 +63,7 @@ public class BuildExcelWindow : EditorWindow
         {
             SelectExcelToCodeByIndex(-1);
         }
-        //自动创建Asset文件
+        //CreateAsset
         GUILayout.Space(20);
         GUILayout.Label("Script To Asset");
         for (int i = 0; i < fileNameList.Count; i++)
@@ -85,7 +85,6 @@ public class BuildExcelWindow : EditorWindow
         //this.Repaint();
     }
  
-    //读取指定路径下的Excel文件名
     private void GetExcelFile()
     {
         fileNameList.Clear();
@@ -114,7 +113,6 @@ public class BuildExcelWindow : EditorWindow
         showNotify = "Find the number of Excel files" + fileNameList.Count;
     }
  
-    //自动创建C#脚本
     private void SelectExcelToCodeByIndex(int index)
     {
         if (index >= 0 && index < filePathList.Count)
@@ -128,7 +126,6 @@ public class BuildExcelWindow : EditorWindow
         }
     }
  
-    //自动创建Asset文件
     private void SelectCodeToAssetByIndex(int index)
     {
         if (index >= 0 && index < filePathList.Count)

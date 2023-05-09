@@ -11,45 +11,45 @@ public class ExcelCodeCreater
  
     #region --- Create Code ---
  
-    //创建代码，生成数据C#类
+    //CreateCode
     public static string CreateCodeStrByExcelData(ExcelMediumData excelMediumData)
     {
         if (excelMediumData == null)
             return null;
-        //Excel名字
+        //ExcelName
         string excelName = excelMediumData.excelName;
         if (string.IsNullOrEmpty(excelName))
             return null;
-        //Dictionary<字段名称, 字段类型>
+        //Dictionary<Name, Type>
         Dictionary<string, string> propertyNameTypeDic = excelMediumData.propertyNameTypeDic;
         if (propertyNameTypeDic == null || propertyNameTypeDic.Count == 0)
             return null;
-        //List<一行数据>，List<Dictionary<字段名称, 一行的每个单元格字段值>>
+        //List<OneLineData>，List<Dictionary<DataName, AllDataOfOneLine>>
         List<Dictionary<string, string>> allItemValueRowList = excelMediumData.allItemValueRowList;
         if (allItemValueRowList == null || allItemValueRowList.Count == 0)
             return null;
-        //行数据类名
+        //
         string itemClassName = excelName + "ExcelItem";
-        //整体数据类名
+        //
         string dataClassName = excelName + "ExcelData";
  
-        //生成类
+        //BuildClass
         StringBuilder classSource = new StringBuilder();
         classSource.Append("/*Auto Create, Don't Edit !!!*/\n");
         classSource.Append("\n");
-        //添加引用
+        //Reference
         classSource.Append("using UnityEngine;\n");
         classSource.Append("using System.Collections.Generic;\n");
         classSource.Append("using System;\n");
         classSource.Append("using System.IO;\n");
         classSource.Append("\n");
-        //生成行数据类，记录每行数据
+        //RowData
         classSource.Append(CreateExcelRowItemClass(itemClassName, propertyNameTypeDic));
         classSource.Append("\n");
-        //生成整体数据类，记录整个Excel的所有行数据
+        //Excel
         classSource.Append(CreateExcelDataClass(dataClassName, itemClassName));
         classSource.Append("\n");
-        //生成Asset操作类，用于自动创建Excel对应的Asset文件并赋值
+        //Asset
         classSource.Append(CreateExcelAssetClass(excelMediumData));
         classSource.Append("\n");
         return classSource.ToString();
@@ -57,15 +57,14 @@ public class ExcelCodeCreater
  
     //----------
  
-    //生成行数据类
+    //Row
     private static StringBuilder CreateExcelRowItemClass(string itemClassName, Dictionary<string, string> propertyNameTypeDic)
     {
-        //生成Excel行数据类
         StringBuilder classSource = new StringBuilder();
         classSource.Append("[Serializable]\n");
         classSource.Append("public class " + itemClassName + " : ExcelItemBase\n");
         classSource.Append("{\n");
-        //声明所有字段
+
         foreach (var item in propertyNameTypeDic)
         {
             classSource.Append(CreateCodeProperty(item.Key, item.Value));
@@ -74,7 +73,7 @@ public class ExcelCodeCreater
         return classSource;
     }
  
-    //声明行数据类字段
+    //DeclareRow
     private static string CreateCodeProperty(string name, string type)
     {
         if (string.IsNullOrEmpty(name))
@@ -82,7 +81,7 @@ public class ExcelCodeCreater
         if (name == "id")
             return null;
  
-        //判断字段类型
+        //Type
         if (type == "int" || type == "Int" || type == "INT")
             type = "int";
         else if (type == "float" || type == "Float" || type == "FLOAT")
@@ -98,21 +97,21 @@ public class ExcelCodeCreater
         }
         else
             type = "string";
-        //声明
+        //Declare
         string propertyStr = "\tpublic " + type + " " + name + ";\n";
         return propertyStr;
     }
  
     //----------
  
-    //生成数据类
+    //Data
     private static StringBuilder CreateExcelDataClass(string dataClassName, string itemClassName)
     {
         StringBuilder classSource = new StringBuilder();
         classSource.Append("[CreateAssetMenu(fileName = \"" + dataClassName + "\", menuName = \"Excel To ScriptableObject/Create " + dataClassName + "\", order = 1)]\n");
         classSource.Append("public class " + dataClassName + " : ExcelDataBase<" + itemClassName + ">\n");
         classSource.Append("{\n");
-        //声明字段，行数据类数组
+        
         //classSource.Append("\tpublic " + itemClassName + "[] items;\n");
         classSource.Append("}\n");
         return classSource;
@@ -120,7 +119,7 @@ public class ExcelCodeCreater
  
     //----------
  
-    //生成Asset操作类
+    //Asset
     private static StringBuilder CreateExcelAssetClass(ExcelMediumData excelMediumData)
     {
         if (excelMediumData == null)
@@ -143,12 +142,12 @@ public class ExcelCodeCreater
  
         StringBuilder classSource = new StringBuilder();
         classSource.Append("#if UNITY_EDITOR\n");
-        //类名
+
         classSource.Append("public class " + excelName + "AssetAssignment\n");
         classSource.Append("{\n");
-        //方法名
+
         classSource.Append("\tpublic static bool CreateAsset(List<Dictionary<string, string>> allItemValueRowList, string excelAssetPath)\n");
-        //方法体，若有需要可加入try/catch
+
         classSource.Append("\t{\n");
         classSource.Append("\t\tif (allItemValueRowList == null || allItemValueRowList.Count == 0)\n");
         classSource.Append("\t\t\treturn false;\n");
@@ -181,10 +180,9 @@ public class ExcelCodeCreater
         return classSource;
     }
  
-    //声明Asset操作类字段
+    //Asset
     private static string AssignmentCodeProperty(string stringValue, string type)
     {
-        //判断类型
         if (type == "int" || type == "Int" || type == "INT")
         {
             return "Convert.ToInt32(" + stringValue + ")";
