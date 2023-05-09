@@ -12,7 +12,7 @@ using System;
 //ExcelMediumData
 public class ExcelMediumData
 {
-    //Excel名字
+    //ExcelName
     public string excelName;
     //<dataName, dataType>
     public Dictionary<string, string> propertyNameTypeDic;
