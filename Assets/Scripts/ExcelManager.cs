@@ -21,7 +21,7 @@ public class ExcelManager : Singleton<ExcelManager>
         return excelData;
     }
  
-    public V GetExcelItem<T, V>(string targetId) where T : ExcelDataBase<V> where V : ExcelItemBase
+    public V GetExcelItem<T, V>(int targetId) where T : ExcelDataBase<V> where V : ExcelItemBase
     {
         var excelData = GetExcelData<T, V>();
  

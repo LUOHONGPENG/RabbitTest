@@ -8,7 +8,8 @@ public class ExcelDataBase<T> : ScriptableObject where T : ExcelItemBase
 {
     public T[] items;
  
-    public T GetExcelItem(string targetId)
+    //Find the ExcelItem that has the targetID
+    public T GetExcelItem(int targetId)
     {
         if(items != null && items.Length > 0)
         {
@@ -20,5 +21,5 @@ public class ExcelDataBase<T> : ScriptableObject where T : ExcelItemBase
  
 public class ExcelItemBase
 {
-    public string id;
+    public int id;
 }
